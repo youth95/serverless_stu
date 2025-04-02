@@ -10,12 +10,19 @@ if (cluster.isPrimary) {
 
   // Fork workers.
   for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
+    const worker = cluster.fork();
+    worker.on('error', (err) => {
+      console.error(`worker ${worker.process.pid} error: ${err}`);
+    });
   }
 
   cluster.on('exit', (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
   });
+
+  for (const id in cluster.workers) {
+    cluster.workers[id].on('message', console.log);
+  }
 } else {
   // Workers can share any TCP connection
   // In this case it is an HTTP server

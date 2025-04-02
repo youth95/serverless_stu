@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "generic-pool": "^3.9.0",
+    "piscina": "^4.9.2"
+  }
+}
