@@ -136,7 +136,7 @@ The 'exit' event may or may not fire after an error has occurred. When listening
 
 ![](./docs/arch.png)
 
-# 关于 VM 部分
+# 关于 函数执行的 部分
 
 目前计划学习研究 https://github.com/labring/laf/tree/main/runtimes/nodejs 相关的设计和实现。选用适合我们的部分新实现一个更轻量的版本。
 
@@ -563,3 +563,21 @@ FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memor
 > curl http://localhost:8000
 云函数执行进程异常, 这里可以做恢复, 但是我没时间, 先不做
 ```
+
+# 关于 VM2 的问题
+
+VM2 项目停止维护了。项目建议使用 https://github.com/patriksimek/vm2
+
+# 关于 serverless runtime mvp 服务的接口
+
+- 函数部署
+    - 输入: code.zip + 一些元信息，例如：路由信息、请求方法、是否开启 DEBUG 等等。
+    - 输出: 函数名+版本号
+
+- 函数上线
+    - 输入: 函数名+版本号
+    - 输出: 上线记录ID
+
+- 函数执行
+    - 输入: 函数路由 + 参数
+    - 输出: 用户的函数执行结果
